@@ -34,3 +34,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           source: ./
           target: public_html/calculator
+          # dsdr: true
