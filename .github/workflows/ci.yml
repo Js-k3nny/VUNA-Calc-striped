@@ -65,11 +65,11 @@ jobs:
       - name: Deploy to VPS via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
-          FTP_HOST: kehinde.vudse26.cloud
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          server: kehinde.vudse26.cloud
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          remote-dir: /home/kehinde/public_html/
+          server-dir: /home/kehinde/public_html/
           protocol: ftp
           exclude:
             - .git/
