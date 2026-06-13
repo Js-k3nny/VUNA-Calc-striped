@@ -30,8 +30,9 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: panel.vudse26.cloud
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           source: ./
           target: public_html/calculator
-          # dsdr: true
+          strip_components: true
+          # dsdr: truedd
