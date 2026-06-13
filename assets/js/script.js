@@ -95,6 +95,7 @@ function normalizeExpression(expr) {
     .replace(/tan\(/g, "tanDeg(")
     .replace(/asinh\(/g, "asinh(")
     .replace(/sinh\(/g, "sinh(")
+    .replace(/\bsqrt\(/g, "Math.sqrt(")
     .replace(/\be\b/g, "Math.E")
     .replace(/\bpi\b/g, "Math.PI");
 }

@@ -89,6 +89,10 @@ describe("normalizeExpression", () => {
     expect(normalizeExpression("pi")).toBe("Math.PI");
   });
 
+  test("replaces sqrt( with Math.sqrt(", () => {
+    expect(normalizeExpression("sqrt(9)")).toBe("Math.sqrt(9)");
+  });
+
   test("does not replace sinh( or asinh(", () => {
     expect(normalizeExpression("sinh(1)")).toBe("sinh(1)");
     expect(normalizeExpression("asinh(1)")).toBe("asinh(1)");
@@ -144,6 +148,10 @@ describe("calculateExpression", () => {
 
   test("evaluates Math.E", () => {
     expect(calculateExpression("e")).toBeCloseTo(Math.E);
+  });
+
+  test("evaluates sqrt(9)", () => {
+    expect(calculateExpression("sqrt(9)")).toBeCloseTo(3);
   });
 });
 
