@@ -33,14 +33,14 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          remote-dir: /home/kehinde/public_html/
+          remote-dir: public_html/
           protocol: ftp
-          exclude:
-            - .git/
-            - .github/
-            - node_modules/
-            - test/
-            - .dockerignore
-            - .eslintrc.js
-            - jest.config.js
-            - .gitignore
+          excludes: |
+            .git/
+            .github/
+            node_modules/
+            test/
+            .dockerignore
+            .eslintrc.js
+            jest.config.js
+            .gitignore
