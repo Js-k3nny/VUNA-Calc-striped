@@ -1,0 +1,27 @@
+{
+  "name": "vuna-calc-striped",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "scripts": {
+    "lint": "eslint assets/js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Js-k3nny/VUNA-Calc-striped.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Js-k3nny/VUNA-Calc-striped/issues"
+  },
+  "homepage": "https://github.com/Js-k3nny/VUNA-Calc-striped#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1"
+  }
+}
