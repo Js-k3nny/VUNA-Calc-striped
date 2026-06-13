@@ -193,14 +193,16 @@
       background: #cfe2ff;
     }
 
-    .btn-action {
-      background: #fff5f5;
-      color: #fa5252;
+.btn-action {
+      background: #111111;
+      color: #ffffff;
     }
 
     .btn-action:hover {
-      background: #ffe3e3;
+      background: #000000;
+      color: #ffffff;
     }
+
 
     .btn-equals {
       background: var(--primary-color);
