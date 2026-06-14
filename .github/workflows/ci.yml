@@ -37,6 +37,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare deploy files
+        run: |
+          mkdir -p deploy
+          cp index.html deploy/
+          cp -r calculator deploy/
+
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
