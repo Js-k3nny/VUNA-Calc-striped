@@ -1,84 +1,53 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
-  lint:
-    name: Lint
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
 
-      - name: Run lint
-        run: npm run lint
+      - uses: docker/setup-buildx-action@v3
 
-  test:
-    name: Test
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
         with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
+          context: .
+          push: false
+          tags: vuna-calc:ci
 
   deploy:
-    name: Deploy to VPS
-    needs: test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main'
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
+      - name: Prepare deploy files
+        run: |
+          mkdir -p deploy
+          cp index.html deploy/
+          cp -r calculator deploy/
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Deploy to VPS via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: 159.198.47.177
+          server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /home/kehinde/public_html/
-          protocol: ftp
-          exclude:
-            - .git/
-            - .github/
-            - node_modules/
-            - test/
-            - .dockerignore
-            - Dockerfile
-            - eslint.config.js
-            - package.json
-            - package-lock.json
-            - .gitignore
+          local-dir: deploy/
+          server-dir: public_html/

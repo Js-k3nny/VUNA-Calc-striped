@@ -1,24 +1,15 @@
-FROM node:20-alpine AS builder
-
+FROM node:20-alpine AS test
 WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci
-
+COPY package*.json ./
+RUN npm ci
 COPY . .
+RUN npm run lint && npm test
 
-RUN npm run lint
-RUN npm test
-
-FROM nginx:alpine AS runtime
-
-WORKDIR /usr/share/nginx/html
-
-COPY --from=builder /app/index.html .
-COPY --from=builder /app/assets ./assets
-
-RUN sed -i 's/listen 80 default_server/listen 8080 default_server/' nginx.conf
-
-EXPOSE 8080
-
+FROM nginx:stable-alpine AS production
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=test /app/index.html /usr/share/nginx/html/
+COPY --from=test /app/calculator /usr/share/nginx/html/calculator
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=2 \
+  CMD curl -s -o /dev/null http://localhost/ || exit 1
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
