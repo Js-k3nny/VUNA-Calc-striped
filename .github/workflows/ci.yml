@@ -37,17 +37,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare deploy files
-        run: |
-          mkdir -p deploy
-          cp index.html deploy/
-          cp -r calculator deploy/
-
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.FTP_HOST }}
+          host: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: deploy/
-          server-dir: public_html/
+          source: "index.html,calculator/"
+          target: public_html
+          strip_components: 0
