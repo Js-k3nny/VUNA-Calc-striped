@@ -95,7 +95,6 @@ function normalizeExpression(expr) {
     .replace(/tan\(/g, "tanDeg(")
     .replace(/asinh\(/g, "asinh(")
     .replace(/sinh\(/g, "sinh(")
-    .replace(/\bsqrt\(/g, "Math.sqrt(")
     .replace(/\be\b/g, "Math.E")
     .replace(/\bpi\b/g, "Math.PI");
 }
@@ -185,4 +184,109 @@ function calculateResult() {
 
 function updateResult() {
   document.getElementById("result").value = currentExpression || "0";
+}
+
+// ===============================
+// 🔢 NUMBER ANALYZER FEATURE
+// ===============================
+
+function isPrime(n) {
+  if (n < 2) return false;
+  if (n === 2) return true;
+  if (n % 2 === 0) return false;
+  for (let i = 3; i <= Math.sqrt(n); i += 2) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
+
+function primeFactorization(n) {
+  const factors = [];
+  let d = 2;
+  while (d * d <= n) {
+    while (n % d === 0) {
+      factors.push(d);
+      n /= d;
+    }
+    d++;
+  }
+  if (n > 1) factors.push(n);
+  return factors;
+}
+
+function countDivisors(n) {
+  const factors = primeFactorization(n);
+  const counts = {};
+  factors.forEach(f => { counts[f] = (counts[f] || 0) + 1; });
+  let total = 1;
+  for (const exp in counts) {
+    total *= (counts[exp] + 1);
+  }
+  return total;
+}
+
+function sumDivisors(n) {
+  let sum = 0;
+  for (let i = 1; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      sum += i;
+      if (i !== n / i) sum += n / i;
+    }
+  }
+  return sum;
+}
+
+function isPerfectNumber(n) {
+  return sumDivisors(n) - n === n && n > 1;
+}
+
+function isFibonacci(n) {
+  if (n < 0) return false;
+  const a = 5 * n * n + 4;
+  const b = 5 * n * n - 4;
+  const sqrtA = Math.round(Math.sqrt(a));
+  const sqrtB = Math.round(Math.sqrt(b));
+  return sqrtA * sqrtA === a || sqrtB * sqrtB === b;
+}
+
+function formatFactors(factors) {
+  if (factors.length === 0) return "—";
+  const counts = {};
+  factors.forEach(f => { counts[f] = (counts[f] || 0) + 1; });
+  return Object.entries(counts)
+    .map(([base, exp]) => exp > 1 ? `${base}<sup>${exp}</sup>` : base)
+    .join(" × ");
+}
+
+function analyzeNumber() {
+  const panel = document.getElementById("analyzer-panel");
+  const output = document.getElementById("analyzer-output");
+  const raw = currentExpression.trim();
+  const num = parseFloat(raw);
+
+  if (!raw || isNaN(num) || num < 0 || !Number.isInteger(num)) {
+    panel.style.display = "block";
+    output.innerHTML = "<span class=\"prime-no\">Enter a non-negative integer on the display first.</span>";
+    return;
+  }
+
+  const n = num;
+  const factors = primeFactorization(n);
+  const divisors = countDivisors(n);
+  const sum = sumDivisors(n);
+  const prime = isPrime(n);
+  const perfect = isPerfectNumber(n);
+  const fib = isFibonacci(n);
+
+  let html = "";
+  html += "<span class=\"label\">Input:</span> <span class=\"val\">" + n + "</span><br>";
+  html += "<span class=\"label\">Prime:</span> <span class=\"" + (prime ? "prime-yes" : "prime-no") + "\">" + (prime ? "Yes" : "No") + "</span><br>";
+  html += "<span class=\"label\">Factorization:</span> <span class=\"val\">" + formatFactors(factors) + "</span><br>";
+  html += "<span class=\"label\">Divisors:</span> <span class=\"val\">" + divisors + "</span><br>";
+  html += "<span class=\"label\">Sum of divisors:</span> <span class=\"val\">" + sum + "</span><br>";
+  html += "<span class=\"label\">Perfect number:</span> <span class=\"" + (perfect ? "special-yes" : "") + "\">" + (perfect ? "Yes" : "No") + "</span><br>";
+  html += "<span class=\"label\">Fibonacci number:</span> <span class=\"" + (fib ? "special-yes" : "") + "\">" + (fib ? "Yes" : "No") + "</span>";
+
+  panel.style.display = "block";
+  output.innerHTML = html;
 }

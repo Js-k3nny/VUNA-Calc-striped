@@ -193,16 +193,14 @@
       background: #cfe2ff;
     }
 
-.btn-action {
-      background: #111111;
-      color: #ffffff;
+    .btn-action {
+      background: #fff5f5;
+      color: #fa5252;
     }
 
     .btn-action:hover {
-      background: #000000;
-      color: #ffffff;
+      background: #ffe3e3;
     }
-
 
     .btn-equals {
       background: var(--primary-color);
@@ -803,3 +801,52 @@
  
   /* error state */
   .adc-error { color: #dc3545; font-size: .85rem; margin-top: 6px; display: none; }
+
+  /* ── Number Analyzer Panel ── */
+  .analyzer-panel {
+    margin-top: 16px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 16px 18px;
+    border: 1px dashed rgba(13, 110, 253, 0.25);
+    animation: slideUp 0.3s ease-out;
+  }
+  body.dark-mode .analyzer-panel {
+    background: #2a2a2a;
+    border-color: rgba(13, 110, 253, 0.35);
+  }
+  .analyzer-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #adb5bd;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .analyzer-output {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #212529;
+  }
+  body.dark-mode .analyzer-output {
+    color: #e0e0e0;
+  }
+  .analyzer-output .label {
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+  .analyzer-output .val {
+    font-family: 'Courier New', monospace;
+  }
+  .analyzer-output .prime-yes {
+    color: #198754;
+    font-weight: 700;
+  }
+  .analyzer-output .prime-no {
+    color: #dc3545;
+    font-weight: 700;
+  }
+  .analyzer-output .special-yes {
+    color: #b026ff;
+    font-weight: 700;
+  }

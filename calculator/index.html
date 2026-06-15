@@ -67,8 +67,15 @@
                     <!-- Row 9 -->
                     <button class="btn btn-operator" onclick="operatorToResult('-')">−</button>
 
-                    <button class="btn btn-equals" onclick="calculateResult()" style="grid-column: span 4;">=</button>
+                    <button class="btn btn-equals" onclick="calculateResult()" style="grid-column: span 3;">=</button>
+                    <button class="btn btn-action" onclick="analyzeNumber()" title="Analyze number properties">AN</button>
                   </div>
+                </div>
+
+                <!-- Number Analyzer Panel -->
+                <div id="analyzer-panel" class="analyzer-panel" style="display:none;">
+                  <div class="analyzer-header">Number Analyzer</div>
+                  <div id="analyzer-output" class="analyzer-output"></div>
                 </div>
               </div>
             </div>

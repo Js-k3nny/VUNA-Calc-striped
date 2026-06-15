@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WANDERLUST — Explore the World</title>
+  <title>ECHO VALLEY — Feel the Resonance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,8 +11,9 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --neon: #00b4d8;
-      --neon-dim: #00b4d866;
+      --neon: #b026ff;
+      --neon-dim: #b026ff66;
+      --neon-alt: #ff2d95;
       --dark: #0a0a0a;
       --dark-card: #111111;
       --dark-surface: #1a1a1a;
@@ -85,15 +86,16 @@
       position: relative;
       background:
         radial-gradient(ellipse at 50% 80%, var(--neon-dim) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 20%, #ff2d9522 0%, transparent 50%),
         var(--dark);
     }
     .hero-content { max-width: 800px; }
     .hero .product-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(6rem, 18vw, 14rem);
-      line-height: 0.9;
+      font-size: clamp(5rem, 16vw, 13rem);
+      line-height: 0.85;
       color: #fff;
-      text-shadow: 0 0 40px var(--neon), 0 0 80px var(--neon-dim);
+      text-shadow: 0 0 40px var(--neon), 0 0 80px var(--neon-dim), 0 0 120px #ff2d9533;
       margin-bottom: 0.2em;
     }
     .tagline {
@@ -144,8 +146,8 @@
       text-decoration: none;
     }
 
-    /* ─── FEATURES ─── */
-    .features {
+    /* ─── TOUR DATES ─── */
+    .tour {
       padding: 6rem 0;
       background: var(--dark-surface);
     }
@@ -156,35 +158,37 @@
       color: #fff;
     }
     .section-title span { color: var(--neon); }
-    .features-grid {
+    .tour-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
-    .feature-card {
+    .tour-card {
       background: var(--dark-card);
       border: 1px solid #222;
       border-radius: 8px;
-      padding: 2.5rem 2rem;
-      text-align: center;
+      padding: 1.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       transition: border-color .3s, transform .3s;
     }
-    .feature-card:hover {
+    .tour-card:hover {
       border-color: var(--neon);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      display: block;
-      filter: drop-shadow(0 0 8px var(--neon-dim));
-    }
-    .feature-card h3 {
-      font-size: 1.6rem;
+    .tour-info h3 {
+      font-size: 1.3rem;
       color: #fff;
-      margin-bottom: .5rem;
+      margin-bottom: .3rem;
     }
-    .feature-card p { color: var(--text-muted); font-size: 1.05rem; }
+    .tour-info p { color: var(--text-muted); font-size: .95rem; }
+    .tour-date {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--neon);
+      white-space: nowrap;
+    }
 
     /* ─── SOCIAL PROOF ─── */
     .social-proof {
@@ -314,6 +318,7 @@
       .proof-strip { flex-direction: column; gap: 2rem; }
       .signup-form { flex-direction: column; }
       .signup-form button { width: 100%; }
+      .tour-card { flex-direction: column; text-align: center; gap: 1rem; }
     }
     @media (max-width: 480px) {
       nav { padding: .8rem 1rem; }
@@ -326,11 +331,11 @@
 
 <!-- ─── NAV ─── -->
 <nav>
-  <div class="logo">WANDERLUST</div>
+  <div class="logo">ECHO VALLEY</div>
   <ul class="nav-links">
-    <li><a href="#features">Destinations</a></li>
-    <li><a href="#proof">Testimonials</a></li>
-    <li><a href="#signup">Book Now</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#proof">Press</a></li>
+    <li><a href="#signup">Join Us</a></li>
     <li><a href="calculator/">Calculator</a></li>
   </ul>
 </nav>
@@ -338,33 +343,60 @@
 <!-- ─── HERO ─── -->
 <section class="hero" id="hero">
   <div class="hero-content">
-    <div class="product-name">WANDERLUST</div>
-    <p class="tagline">Explore the <span>world</span>. Live the <span>adventure</span>.</p>
-    <a href="#signup" class="cta-btn">Book Now</a>
+    <div class="product-name">ECHO VALLEY</div>
+    <p class="tagline">Feel the <span>resonance</span>. Hear the <span>echo</span>.</p>
+    <a href="#tour" class="cta-btn">Tour Dates</a>
     <br>
     <a href="calculator/" class="cta-secondary">Open Calculator &rarr;</a>
   </div>
 </section>
 
-<!-- ─── FEATURES ─── -->
-<section class="features" id="features">
+<!-- ─── TOUR DATES ─── -->
+<section class="tour" id="tour">
   <div class="container">
-    <h2 class="section-title">Why <span>WANDERLUST</span>?</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">🌍</span>
-        <h3>Global Destinations</h3>
-        <p>Over 500 destinations across 6 continents. Your dream vacation is just a click away.</p>
+    <h2 class="section-title"><span>On Tour</span> 2026</h2>
+    <div class="tour-grid">
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>The Roxy</h3>
+          <p>Los Angeles, CA</p>
+        </div>
+        <div class="tour-date">Jul 12</div>
       </div>
-      <div class="feature-card">
-        <span class="feature-icon">💰</span>
-        <h3>Best Price Guarantee</h3>
-        <p>We match any competitor's price and give you an extra 5% off. Travel more, spend less.</p>
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>Madison Square Garden</h3>
+          <p>New York, NY</p>
+        </div>
+        <div class="tour-date">Jul 28</div>
       </div>
-      <div class="feature-card">
-        <span class="feature-icon">🎧</span>
-        <h3>24/7 Support</h3>
-        <p>Our travel experts are available around the clock to help you plan the perfect trip.</p>
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>The O2 Arena</h3>
+          <p>London, UK</p>
+        </div>
+        <div class="tour-date">Aug 15</div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>Red Rocks</h3>
+          <p>Morrison, CO</p>
+        </div>
+        <div class="tour-date">Sep 03</div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>Brixton Academy</h3>
+          <p>London, UK</p>
+        </div>
+        <div class="tour-date">Sep 20</div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-info">
+          <h3>Sydney Opera House</h3>
+          <p>Sydney, AU</p>
+        </div>
+        <div class="tour-date">Oct 10</div>
       </div>
     </div>
   </div>
@@ -375,16 +407,16 @@
   <div class="container">
     <div class="proof-strip">
       <div>
-        <div class="stat-number">10,000+</div>
-        <div class="stat-label">Happy Travelers</div>
+        <div class="stat-number">5M+</div>
+        <div class="stat-label">Monthly Listeners</div>
       </div>
       <div class="quote-block">
-        <blockquote>"WANDERLUST made our honeymoon in Bali absolutely magical. Every detail was perfect from start to finish."</blockquote>
-        <cite>— Sarah & James, Travelers</cite>
+        <blockquote>"ECHO VALLEY's live show is unlike anything I've ever experienced. Pure sonic energy."</blockquote>
+        <cite>— Rolling Stone Magazine</cite>
       </div>
       <div>
-        <div class="stat-number">4.9★</div>
-        <div class="stat-label">Average User Rating</div>
+        <div class="stat-number">3</div>
+        <div class="stat-label">Grammy Nominations</div>
       </div>
     </div>
   </div>
@@ -393,13 +425,13 @@
 <!-- ─── EMAIL SIGNUP ─── -->
 <section class="signup" id="signup">
   <div class="container">
-    <h2>Get Exclusive Deals</h2>
-    <p>Sign up for our newsletter and receive exclusive travel deals and destination guides.</p>
+    <h2>Join the Fandom</h2>
+    <p>Get early access to tickets, exclusive merch drops, and behind-the-scenes content.</p>
     <form class="signup-form" id="signup-form">
       <input type="email" placeholder="your@email.com" required>
-      <button type="submit">Subscribe</button>
+      <button type="submit">Join</button>
     </form>
-    <div class="signup-confirm" id="signup-confirm">Welcome aboard! Check your inbox for exclusive deals. ✈️</div>
+    <div class="signup-confirm" id="signup-confirm">Welcome to the valley. Check your inbox. 🎸</div>
   </div>
 </section>
 
@@ -408,15 +440,15 @@
   <div class="container">
     <ul class="footer-links">
       <li><a href="#">About</a></li>
-      <li><a href="#">Destinations</a></li>
+      <li><a href="#">Music</a></li>
       <li><a href="#">Instagram</a></li>
-      <li><a href="#">Facebook</a></li>
+      <li><a href="#">TikTok</a></li>
       <li><a href="#">Twitter / X</a></li>
       <li><a href="#">Privacy</a></li>
       <li><a href="#">Terms</a></li>
       <li><a href="calculator/">Calculator</a></li>
     </ul>
-    <p class="footer-copy">&copy; 2026 WANDERLUST Travel Co. All rights reserved.</p>
+    <p class="footer-copy">&copy; 2026 ECHO VALLEY. All rights reserved.</p>
   </div>
 </footer>
 
