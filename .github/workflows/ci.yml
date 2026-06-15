@@ -43,11 +43,14 @@ jobs:
           cp index.html deploy/
           cp -r calculator deploy/
 
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: deploy/
-          server-dir: public_html/
+        run: |
+          lftp -u "${{ secrets.FTP_USERNAME }}","${{ secrets.FTP_PASSWORD }}" \
+            "${{ secrets.FTP_HOST }}" <<EOF
+          set ftp:ssl-allow no
+          mirror -R deploy/ public_html/
+          quit
+          EOF
